@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+    	<!-- Leave Resources  -->
+        <record id="is_resource_leave_view" model="ir.ui.view">
+            <field name="name">is.resource.leave.view</field>
+            <field name="model">resource.calendar.leaves</field>
+            <field name="inherit_id" ref="resource.resource_calendar_leave_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='resource_id']" position="replace"> 
+                    <field name="resource_id" string="Poste de charge" on_change="onchange_resource(resource_id)"/>
+                    <field name="partner_id" />
+                    <field name="reason" />
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="is_resource_leave_view_tree" model="ir.ui.view">
+            <field name="name">is.resource.leave.view.tree</field>
+            <field name="model">resource.calendar.leaves</field>
+            <field name="inherit_id" ref="resource.resource_calendar_leave_tree" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='resource_id']" position="replace"> 
+                    <field name="resource_id" string="Poste de charge" />
+                    <field name="partner_id" />
+                </xpath>
+            </field>
+        </record>
+        
+        <!--  partner calendar -->
+        <record id="is_res_partner_calendar_view" model="ir.ui.view">
+            <field name="name">is.res.partner.calendar.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='sales_purchases']" position="after"> 
+                    <page name='is_calendar' string="Calendrier">
+                        <field name="calendar_line">
+                        	<form string="Leaves">
+                        		<field name="reason" />
+                                <field name="date_from" />
+                                <field name="date_to" />
+                        	</form>
+                        	<tree string="Leaves" editable="bottom">
+                        		<field name="reason" />
+                                <field name="date_from" />
+                                <field name="date_to" />
+                        	</tree>
+                        </field>
+                        <separator string="Closing days"/>
+                        <group>
+                        	<field name="close_monday" />
+                        	<field name="close_tuesday" />
+                        	<field name="close_wednesday" />
+                        	<field name="close_thursday" />
+                       		<field name="close_friday" />
+                        	<field name="close_saturday" />
+                        	<field name="close_sunday" />
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>
