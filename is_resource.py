@@ -17,6 +17,19 @@ class is_resource_calendar_leaves(osv.osv):
                                     ('others', 'Others')], 'Reason of close'),
     }
     
+    def create(self, cr, uid, vals, context=None):
+        if vals['date_from']:
+            date = datetime.strptime(vals['date_from'], '%Y-%m-%d %H:%M:%S')
+            date_from = date.strftime('%Y-%m-%d 05:00:00')
+            vals.update({'date_from': date_from})
+        
+        if vals['date_to']:
+            date = datetime.strptime(vals['date_to'], '%Y-%m-%d %H:%M:%S')
+            date_to = date.strftime('%Y-%m-%d 05:00:00')
+            vals.update({'date_to': date_to})
+        
+        return super(is_resource_calendar_leaves, self).create(cr, uid, vals, context=context)
+    
 is_resource_calendar_leaves()
     
 class is_res_partner_calendar(osv.osv):
